@@ -1,4 +1,5 @@
 `include "dff.v"
+`include "logical_mods.v"
 
 
 module decoder(opcode[4:0] , out[31:0] , enable);				//decoder module with 5 bit input and 32 bit output - non pipelined
