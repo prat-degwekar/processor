@@ -95,7 +95,7 @@ module Not_32(a , out , clk);								//working - non pipelined
 
 endmodule // Not_32
 
-module tb();
+/*module tb();
 
 	reg [31:0]a , b;
 	reg clk;
@@ -159,6 +159,6 @@ module tb();
 		$monitor($time,"  a = %b , b = %b , out7 = %b\n" , a , b , out7);
 		$monitor($time,"  a = %b , b = %b , out8 = %b\n" , a , b , out8);*/
 
-	end
+	/*end
 
-endmodule
+endmodule*/
