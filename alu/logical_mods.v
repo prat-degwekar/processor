@@ -7,7 +7,7 @@ module And_32(a , b , out , clk);							//working non-pipelined
 
 	wire [31:0] out;
 
-	assign out = a&b;
+	assign out = (a === 32'bz) ? 32'bz : a&b;
 
 endmodule // And_32
 
@@ -20,7 +20,7 @@ module Or_32(a , b , out , clk);							//working non-pipelined
 
 	wire [31:0] out;
 
-	assign out = a|b;
+	assign out = (a === 32'bz) ? 32'bz : a|b;
 
 endmodule // Or_32
 
@@ -33,7 +33,7 @@ module Xor_32(a , b , out , clk);							//working non-pipelined
 
 	wire [31:0] out;
 
-	assign out = a^b;
+	assign out = (a === 32'bz) ? 32'bz : a^b;
 
 endmodule // Xor_32
 
@@ -48,7 +48,7 @@ module Nand_32(a , b , out , clk);							//working non-pipelined
 	wire [31:0] temp;
 
 	assign temp = a&b;
-	assign out = ~temp;										//try assign out = a ~& b;
+	assign out = (a === 32'bz) ? 32'bz : a~&b;										//try assign out = a ~& b;
 
 endmodule // Nand_32
 
@@ -63,7 +63,7 @@ module Nor_32(a , b , out , clk);							//working non-pipelined
 	wire [31:0] temp;
 
 	assign temp = a|b;
-	assign out = ~temp;										//try assign out = a ~| b;
+	assign out = (a === 32'bz) ? 32'bz : a~|b;										//try assign out = a ~| b;
 
 endmodule // Nor_32
 
@@ -78,7 +78,7 @@ module Xnor_32(a , b , out , clk);							//working non-pipelined
 	wire [31:0] temp;
 
 	assign temp = a^b;
-	assign out = ~temp;										//try assign out = a ~^ b;
+	assign out = (a === 32'bz) ? 32'bz : a~^b;										//try assign out = a ~^ b;
 
 endmodule // Xnor_32
 
@@ -91,7 +91,7 @@ module Not_32(a , out , clk);								//working - non pipelined
 
 	wire [31:0] out;
 
-	assign out = ~a;										//try !a if ~a does not work
+	assign out = (a === 32'bz) ? 32'bz : ~a;										//try !a if ~a does not work
 
 endmodule // Not_32
 
