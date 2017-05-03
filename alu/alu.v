@@ -3,14 +3,16 @@
 `include "bus.v"
 `include "decoder.v"
 `include "tsg.v"
+`include "adder/adder.v"
 
-module alu(opcode , a , b , enable , out , clk , w1 , w2 , w3 , w4 , w5 , w6 , w7 , w8 , w9 , w10 , w11 , w12 , w13 , w14 , w15 , w16);				//alu that takes opcode and 2 inputs and performs functions - non pipelined
+module alu(opcode , a , b , enable , out , clk);				//alu that takes opcode and 2 inputs and performs functions - non pipelined
 
 	input [31:0] a , b;
 	input clk , enable;
 	input [4:0] opcode;
 
-	output [31:0] out , w1 , w2 , w3 , w4 , w5 , w6 , w7 , w8 , w9 , w10 , w11 , w12 , w13 , w14 , w15 , w16;
+	output [31:0] out;
+	/* , w1 , w2 , w3 , w4 , w5 , w6 , w7 , w8 , w9 , w10 , w11 , w12 , w13 , w14 , w15 , w16; */
 
 	wire [31:0] out , code;
 
@@ -71,8 +73,8 @@ module alu(opcode , a , b , enable , out , clk , w1 , w2 , w3 , w4 , w5 , w6 , w
 
 	bus b1(out, w1 , w2 , w3 , w4 , w5 , w6 , w7 , w8 , w9 , w10 , w11 , w12 , w13 , w14 , w15 , w16);
 	//other alu
-	//adder module(w1 , s1 , cin//=0 , out , cout , clk);			//addition
-	//adder module(w2 , s2 , cin//=1 , out , cout , clk);			//addition with carry
+	adder a1(a , b , 1'b0 , w1 , cout , clk);			//addition
+	adder a2(a , b , 1'b1 , w2 , cout , clk);			//addition with carry
 
 	//adder module(w3 , not(s3) , cin//=1 , out , cout , clk);		//subtraction
 	//adder module(w4 , not(s4) , cin//=0 , out , cout , clk);		//subtraction with borrow a.k.a barrow

@@ -5,7 +5,7 @@ module decoder(opcode[4:0] , out[31:0] , enable);				//decoder module with 5 bit
 
 	wire [31:0]out;
 
-	assign out = (enable)?(1 << opcode):32'b0;					//assigns output to out array by shifting a '1' based on number in opcode
+	assign out = (enable)?(1'b1 << opcode):32'b0;					//assigns output to out array by shifting a '1' based on number in opcode
 
 endmodule
 
