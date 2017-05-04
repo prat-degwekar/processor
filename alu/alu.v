@@ -15,6 +15,8 @@ module alu(opcode , a , b , enable , out , clk );				//alu that takes opcode and
 
 	wire [31:0] out , code;
 
+	wire cout;
+
 	decoder dec(opcode , code , enable);
 
 	wire [31:0] w1 , w2 , w3 , w4 , w5 , w6 , w7 , w8 , w9 , w10 , w11 , w12 , w13 , w14 , w15 , w16;
@@ -75,6 +77,7 @@ module alu(opcode , a , b , enable , out , clk );				//alu that takes opcode and
 
 	//adder module(w1 , s1 , cin//=0 , out , cout , clk);			//addition
 	//adder module(w2 , s2 , cin//=1 , out , cout , clk);			//addition with carry
+	adder a1(w1 , s1 , 0 , out , cout , clk);
 
 	//adder module(w3 , not(s3) , cin//=1 , out , cout , clk);		//subtraction
 	//adder module(w4 , not(s4) , cin//=0 , out , cout , clk);		//subtraction with borrow a.k.a barrow

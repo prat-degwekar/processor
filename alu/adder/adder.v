@@ -2,16 +2,18 @@
 `include "adder/cirmod.v"
 `include "adder/dff.v"
 
-module adder( x[31:0] , y[31:0] , cin , s[31:0] , cout , clk );
+module adder( x[31:0] , y[31:0] , cin , out , cout1 , clk );
 	input [31:0]x,y;
-	output [31:0]s;
+	output [31:0]out;
 	input cin;
-	output cout;
+	output cout1;
 	input clk;
 
 	wire [31:0]p,g,a,pt,gt,at;
 
-	wire [31:0] s1 , s1t , s12 , s12t , s21 , s21t , s22 , s22t , s31 , s31t , s32 , s32t , s41 , s41t , s42 , s42t , s51 , s51t;
+	wire [31:0] s , s1 , s1t , s12 , s12t , s21 , s21t , s22 , s22t , s31 , s31t , s32 , s32t , s41 , s41t , s42 , s42t , s51 , s51t;
+
+	wire cout;
 
 	assign pt = (x^y);
 	assign gt = (x&y);
@@ -166,5 +168,8 @@ module adder( x[31:0] , y[31:0] , cin , s[31:0] , cout , clk );
 	assign s[29] = p[29] ^ s51[13];
 	assign s[30] = p[30] ^ s51[14];
 	assign s[31] = p[31] ^ s51[15];
+
+	assign out = (x === 32'bz) ? 32'bz : s ;
+	assign cout1 = (x === 32'bz) ? 1'bz : cout;
 
 endmodule
