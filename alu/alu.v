@@ -6,6 +6,7 @@
 `include "adder/adder.v"
 `include "multiplier/pipeMult.v"
 `include "fpmultiplier/fpmultiplier.v"
+`include "stuff/floatadder.v"
 
 module alu(opcode , a , b , enable , out , clk );				//alu that takes opcode and 2 inputs and performs functions - non pipelined
 
@@ -99,6 +100,7 @@ module alu(opcode , a , b , enable , out , clk );				//alu that takes opcode and
 
 
 	//float adder(w6 , s6 , cin , out , cout , clk);				//floating point adder
+	floatadder fla(w6 , s6 , 0 , out , clk);
 	//float adder(w7 , not(s7) , cin// = 1 , out , cout , clk);		//floating point subtraction
 	//float multiply(w8 , s8 , out , cout , clk);					//floating point multiply		done
 	FPM_32 fpmult(w8 , s8 , out , clk);
