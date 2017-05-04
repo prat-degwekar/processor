@@ -95,6 +95,14 @@ module Not_32(a , out , clk);								//working - non pipelined
 
 endmodule // Not_32
 
+module a2s(a , out , clk);
+	input [31:0]a;
+	output [31:0]out;
+	input clk;
+
+	assign out = (a === 32'bz) ? 32'bz : (~a+1);
+endmodule // 2s
+
 /*module tb();
 
 	reg [31:0]a , b;

@@ -17,6 +17,8 @@ module alu(opcode , a , b , enable , out , clk );				//alu that takes opcode and
 
 	wire cout;
 
+	wire [31:0]temp1 , temp2;
+
 	decoder dec(opcode , code , enable);
 
 	wire [31:0] w1 , w2 , w3 , w4 , w5 , w6 , w7 , w8 , w9 , w10 , w11 , w12 , w13 , w14 , w15 , w16;
@@ -78,9 +80,14 @@ module alu(opcode , a , b , enable , out , clk );				//alu that takes opcode and
 	//adder module(w1 , s1 , cin//=0 , out , cout , clk);			//addition
 	//adder module(w2 , s2 , cin//=1 , out , cout , clk);			//addition with carry
 	adder a1(w1 , s1 , 0 , out , cout , clk);
+	adder a2(w2 , s2 , 1 , out , cout , clk);
 
 	//adder module(w3 , not(s3) , cin//=1 , out , cout , clk);		//subtraction
 	//adder module(w4 , not(s4) , cin//=0 , out , cout , clk);		//subtraction with borrow a.k.a barrow
+	a2s sub1(s3 , temp1 , clk);
+	adder sub(w3 , temp1 , 1 , out , cout , clk);
+	a2s sub2(s4 , temp2 , clk);
+	adder subb(w4 , temp2 , 0 , out , cout , clk);
 
 	//multiplication module(w5 , s5 , out , cout , clk);			//multiplication
 
@@ -98,8 +105,10 @@ module alu(opcode , a , b , enable , out , clk );				//alu that takes opcode and
 	Xnor_32 Xnor(w14 , s14 , out , clk);									//Xnor
 
 	//Not_32(w15 , out , clk);										//NOT
+	Not_32 Not(w15 , out , clk);
 
 	//Neg_32(w16 , out , clk);										//2's Complement - yet to write
+	a2s comple(w16 , out , clk);
 
 	initial begin
 
