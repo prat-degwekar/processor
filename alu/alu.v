@@ -5,14 +5,13 @@
 `include "tsg.v"
 `include "adder/adder.v"
 
-module alu(opcode , a , b , enable , out , clk);				//alu that takes opcode and 2 inputs and performs functions - non pipelined
+module alu(opcode , a , b , enable , out , clk );				//alu that takes opcode and 2 inputs and performs functions - non pipelined
 
 	input [31:0] a , b;
 	input clk , enable;
 	input [4:0] opcode;
 
 	output [31:0] out;
-	/* , w1 , w2 , w3 , w4 , w5 , w6 , w7 , w8 , w9 , w10 , w11 , w12 , w13 , w14 , w15 , w16; */
 
 	wire [31:0] out , code;
 
@@ -71,10 +70,11 @@ module alu(opcode , a , b , enable , out , clk);				//alu that takes opcode and 
 	tsg_32 t16_1(a , code[15] , w16 , clk);							//tsg for NEGATION a
 	tsg_32 t16_2(b , code[15] , s16 , clk);							//tsg for NEGATION b
 
-	bus b1(out, w1 , w2 , w3 , w4 , w5 , w6 , w7 , w8 , w9 , w10 , w11 , w12 , w13 , w14 , w15 , w16);
 	//other alu
-	adder a1(a , b , 1'b0 , w1 , cout , clk);			//addition
-	adder a2(a , b , 1'b1 , w2 , cout , clk);			//addition with carry
+	//give each module diff. wire and set out = OR of all values or AND of all value based on what x | 1 is equal to...
+
+	//adder module(w1 , s1 , cin//=0 , out , cout , clk);			//addition
+	//adder module(w2 , s2 , cin//=1 , out , cout , clk);			//addition with carry
 
 	//adder module(w3 , not(s3) , cin//=1 , out , cout , clk);		//subtraction
 	//adder module(w4 , not(s4) , cin//=0 , out , cout , clk);		//subtraction with borrow a.k.a barrow
@@ -85,15 +85,23 @@ module alu(opcode , a , b , enable , out , clk);				//alu that takes opcode and 
 	//float adder(w7 , not(s7) , cin// = 1 , out , cout , clk);		//floating point subtraction
 	//float multiply(w8 , s8 , out , cout , clk);					//floating point multiply
 
-	//And_32(w9 , s9 , out , clk);									//AND
-	//Or_32(w10 , s10 , out , clk);									//OR
-	//Xor_32(w11 , s11 , out , clk);								//XOR
-	//Nand_32(w12 , s12 , out , clk);								//Nand
-	//Nor_32(w13 , s13 , out , clk);								//Nor
-	//Xnor_32(w14 , s14 , out , clk);								//Xnor
+	//$monitor($time , " w9 = %b\n s9 = %b\n", w9 , s9 );
+
+	And_32 And(w9 , s9 , out , clk);									//AND
+	Or_32 Or(w10 , s10 , out , clk);									//OR
+	Xor_32 Xor(w11 , s11 , out , clk);									//XOR
+	Nand_32 Nand(w12 , s12 , out , clk);									//Nand
+	Nor_32 Nor(w13 , s13 , out , clk);									//Nor
+	Xnor_32 Xnor(w14 , s14 , out , clk);									//Xnor
 
 	//Not_32(w15 , out , clk);										//NOT
 
 	//Neg_32(w16 , out , clk);										//2's Complement - yet to write
+
+	initial begin
+
+		$monitor($time , " w9 = %b\n s9 = %b\n", w9 , s9 );
+
+	end
 
 endmodule // alu
