@@ -1,9 +1,11 @@
-`include "dff.v"
+//`include "multiplier/dff.v"
 `include "logical_mods.v"
 `include "bus.v"
 `include "decoder.v"
 `include "tsg.v"
 `include "adder/adder.v"
+`include "multiplier/pipeMult.v"
+`include "fpmultiplier/fpmultiplier.v"
 
 module alu(opcode , a , b , enable , out , clk );				//alu that takes opcode and 2 inputs and performs functions - non pipelined
 
@@ -14,6 +16,8 @@ module alu(opcode , a , b , enable , out , clk );				//alu that takes opcode and
 	output [31:0] out;
 
 	wire [31:0] out , code;
+
+	wire [63:0] mulout;
 
 	wire cout;
 
@@ -82,18 +86,22 @@ module alu(opcode , a , b , enable , out , clk );				//alu that takes opcode and
 	adder a1(w1 , s1 , 0 , out , cout , clk);
 	adder a2(w2 , s2 , 1 , out , cout , clk);
 
-	//adder module(w3 , not(s3) , cin//=1 , out , cout , clk);		//subtraction
-	//adder module(w4 , not(s4) , cin//=0 , out , cout , clk);		//subtraction with borrow a.k.a barrow
+	//adder module(w3 , not(s3) , cin//=1 , out , cout , clk);		//subtraction		done
+	//adder module(w4 , not(s4) , cin//=0 , out , cout , clk);		//subtraction with borrow a.k.a barrow		done
 	a2s sub1(s3 , temp1 , clk);
 	adder sub(w3 , temp1 , 1 , out , cout , clk);
 	a2s sub2(s4 , temp2 , clk);
 	adder subb(w4 , temp2 , 0 , out , cout , clk);
 
-	//multiplication module(w5 , s5 , out , cout , clk);			//multiplication
+	//multiplication module(w5 , s5 , out , cout , clk);			//multiplication			done
+	multi p(w5 , s5 , mulout , clk);
+	assign out = (w5 === 32'bz) ? 32'bz : mulout[31:0];
+
 
 	//float adder(w6 , s6 , cin , out , cout , clk);				//floating point adder
 	//float adder(w7 , not(s7) , cin// = 1 , out , cout , clk);		//floating point subtraction
-	//float multiply(w8 , s8 , out , cout , clk);					//floating point multiply
+	//float multiply(w8 , s8 , out , cout , clk);					//floating point multiply		done
+	FPM_32 fpmult(w8 , s8 , out , clk);
 
 	//$monitor($time , " w9 = %b\n s9 = %b\n", w9 , s9 );
 

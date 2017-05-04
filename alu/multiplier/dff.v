@@ -10,7 +10,7 @@ module dff(q,clk,d);
 endmodule
 
 
-module dff64(q,clk,d);
+module dff_64(q,clk,d);
 	input [63:0]d;
 	input clk;
 	output [63:0]q;
@@ -22,7 +22,7 @@ module dff64(q,clk,d);
 	end
 endmodule
 
-module dff63(q,clk,d);
+module dff_63(q,clk,d);
 	input [62:0]d;
 	input clk;
 	output [62:0]q;
@@ -34,7 +34,7 @@ module dff63(q,clk,d);
 	end
 endmodule
 
-module dff32(q,clk,d);
+module dff_32(q,clk,d);
 	input [31:0]d;
 	input clk;
 	output [31:0]q;

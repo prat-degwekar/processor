@@ -1,7 +1,7 @@
-`include "csave.v"
-`include "partProduct.v"
-`include "prefix.v"
-`include "dff.v"
+`include "multiplier/csave.v"
+`include "multiplier/partProduct.v"
+`include "multiplier/prefix.v"
+`include "multiplier/dff.v"
 
 module multi(a,b,out,clk);
 
@@ -244,5 +244,5 @@ module multi(a,b,out,clk);
     dff_64 z24(w25,clk,w24);
 
     prefix pre1(w15[63:32],w2[63:32],cout,Cout,mult[63:32],clk);
-    assign out=mult;
+    assign out = (a === 32'bz) ? 32'bz : mult;
 endmodule 

@@ -17,7 +17,7 @@ module test;
 	end
 
 	initial begin
-		a = 32'd1001;
+		a = 32'bz;
 		b = 32'd212;
 	end
 
