@@ -116,7 +116,7 @@ module alu_tb();
 
 		#20
 
-		/*enable = 1'b1;
+		enable = 1'b1;
 		a = 32'b00001111000011110000111100001111;
 		b = 32'b11111111111111111111111111111111;
 		opcode = 5'b01110;
@@ -128,7 +128,7 @@ module alu_tb();
 		b = 32'b11111111111111111111111111111111;
 		opcode = 5'b01111;
 
-		#2*/
+		#2
 
 		enable = 1'b1;
 		b = 32'd4500;
@@ -142,18 +142,18 @@ module alu_tb();
 		a = 32'd45562;
 		opcode = 5'b00011;
 
-		#20
+		/*#20
 
 		enable = 1'b1;
-		a = 32'd25;
-		b = 32'd26;
-		opcode = 5'b00100;
+		a = 32'b0_10000010_00000000000000000100011;
+		b = 32'b0_10000010_00000000000000000100011;
+		opcode = 5'b00101;*/
 
 	end
 
 	initial begin
 
-		$monitor($time,"  opcode = %d , a = %d , b = %d , enable = %b\n\nout = %d\n\n",opcode , a , b , enable , out);
+		$monitor($time,"  opcode = %d , a = %f , b = %f , enable = %b\n\nout = %f\n\n",opcode , a , b , enable , out);
 	
 	end
 
