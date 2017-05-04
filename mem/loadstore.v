@@ -1,16 +1,23 @@
+`include "mem.v"
+`include "reg.v"
+
 module loadstore(opcode, rdst, address, enable,
 			regsrc1, regout1, regsrc2, regout2, regdst, regin, regread, regwrite,
 			memaddress, memin, memout, memread, memwrite
 			);
-inout enable, regread, regwrite, memread, memwrite;
-inout [4:0] opcode, rdst, regsrc1, regsrc2, regdst;
-inout [21:0] address, memaddress;
-inout [31:0] regout1, regout2, regin, memin, memout;
+input enable;
+input [4:0] opcode, rdst;
+input [21:0] address;
 
-wire enable, regread, regwrite, memread, memwrite;
-wire [4:0] opcode, rdst, regsrc1, regsrc2, regdst;
-wire [21:0] address, memaddress;
-wire [31:0] regout1, regout2, regin, memin, memout;
+output reg regread, regwrite, memread, memwrite;
+output reg [4:0] regsrc1, regsrc2, regdst;
+output reg [21:0] memaddress;
+output reg [31:0] regout1, regout2, regin, memin, memout;
+
+/* reg regread, regwrite, memread, memwrite; */
+/* reg [4:0] regsrc1, regsrc2, regdst; */
+/* reg [21:0] memaddress; */
+/* reg [31:0] regout1, regout2, regin, memin, memout; */
 
 always @(*) begin
 	regwrite=1'b0;
